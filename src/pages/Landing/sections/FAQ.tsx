@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 function FAQ() {
-    const [openIndex, setOpenIndex] = useState<number | null>(null)
+    const [openIndex, setOpenIndex] = useState<number | null>(0)
 
     const faqs = [
         { q: 'What is Didactio?', a: 'Didactio is an AI-powered platform that helps educators create professional course syllabi and learning materials in minutes.' },
@@ -15,42 +15,43 @@ function FAQ() {
     ]
 
     return (
-        <section className="py-16 px-6 md:px-12 lg:px-24 bg-white">
+        <section className="py-20 px-6 md:px-12 lg:px-24 bg-white">
             <div className="max-w-6xl mx-auto">
-                <div className="flex flex-col lg:flex-row gap-12">
-                    <div className="lg:w-1/3">
-                        <h2 className="font-sora font-bold text-3xl text-dark mb-4">
-                            Frequently asked questions
-                        </h2>
+                <h2 className="font-sora font-bold text-3xl md:text-4xl text-dark text-center mb-16">
+                    Frequently asked questions
+                </h2>
+
+                <div className="flex flex-col lg:flex-row gap-12 items-start">
+                    <div className="lg:w-1/3 flex justify-center lg:justify-start">
                         <img
                             src="/assets/props/faq-prop.png"
                             alt=""
-                            className="w-48 h-48 object-contain"
+                            className="w-64 h-auto object-contain"
                         />
                     </div>
 
-                    <div className="lg:w-2/3 space-y-3">
+                    <div className="lg:w-2/3 space-y-4">
                         {faqs.map((faq, index) => (
                             <div
                                 key={index}
-                                className="bg-secondary/30 rounded-xl overflow-hidden"
+                                className="bg-[#F5F5F5] rounded-xl overflow-hidden"
                             >
                                 <button
                                     onClick={() => setOpenIndex(openIndex === index ? null : index)}
-                                    className="w-full px-6 py-4 flex items-center justify-between text-left"
+                                    className="w-full px-6 py-4 flex items-center justify-between text-left hover:bg-[#EEEEEE] transition-colors"
                                 >
-                                    <span className="font-inter font-medium text-dark">{faq.q}</span>
+                                    <span className="font-inter font-medium text-dark pr-4">{faq.q}</span>
                                     <img
                                         src="/assets/icons/angle-down-solid-full 1.png"
                                         alt=""
-                                        className={`w-4 h-4 transition-transform ${openIndex === index ? 'rotate-180' : ''}`}
+                                        className={`w-4 h-4 shrink-0 transition-transform duration-200 ${openIndex === index ? 'rotate-180' : ''}`}
                                     />
                                 </button>
-                                {openIndex === index && (
+                                <div className={`overflow-hidden transition-all duration-200 ${openIndex === index ? 'max-h-40' : 'max-h-0'}`}>
                                     <div className="px-6 pb-4">
-                                        <p className="font-inter text-sm text-dark/70">{faq.a}</p>
+                                        <p className="font-inter text-sm text-dark/70 leading-relaxed">{faq.a}</p>
                                     </div>
-                                )}
+                                </div>
                             </div>
                         ))}
                     </div>
