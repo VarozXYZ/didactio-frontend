@@ -1,11 +1,13 @@
 import Header from './components/Header'
+import Hero from './components/Hero'
 import Footer from './components/Footer'
 
 function App() {
     return (
-        <div className="mx-auto bg-white min-h-screen flex flex-col items-center pt-8 px-8">
+        <div className="mx-auto bg-white min-h-screen flex flex-col items-center">
             <Header />
-            <main className="flex-1 w-full max-w-[1440px]">
+            <main className="flex-1 w-full flex flex-col items-center">
+                <Hero />
             </main>
             <Footer />
         </div>

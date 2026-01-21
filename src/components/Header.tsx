@@ -5,7 +5,7 @@ function Header() {
     const isActive = (path: string) => location.pathname === path
 
     return (
-        <header className="max-w-[1440px] flex items-center justify-between gap-24 mt-4">
+        <header className="max-w-[1440px] flex items-center justify-between gap-24 my-10">
             <Link to="/">
                 <img src="/assets/logos/logo-horizontal.png" alt="Didactio" className="h-[60px]" />
             </Link>

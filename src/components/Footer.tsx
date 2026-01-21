@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 
 function Footer() {
     return (
-        <footer className="bg-secondary rounded-b-xl rounded-t-ml w-[1040px] h-[500px] mt-16">
+        <footer className="bg-secondary/55 rounded-b-xl rounded-t-ml w-[1040px] h-[500px] my-5">
             <div className="bg-dark rounded-xl h-[125px] px-16 flex items-center justify-between">
                 <div>
                     <h3 className="font-sora text-3xl font-bold text-white mb-2">Join our newsletter</h3>
