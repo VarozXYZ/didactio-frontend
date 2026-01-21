@@ -24,8 +24,9 @@
 
     --radius-sm: 5px;
     --radius-md: 15px;
+    --radius-ml: 75px;
     --radius-lg: 100px;
-    --radius-xl: 200px;
+    --radius-xl: 100px;
 
     --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.08);
     --shadow-elevated: 0 8px 30px rgba(0, 0, 0, 0.12);
