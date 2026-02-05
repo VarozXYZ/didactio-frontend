@@ -124,7 +124,7 @@ function PlanCard({
     onBillingChange: (mode: BillingMode) => void
 }) {
     const cardStyle = plan.featured
-        ? 'border-2 border-accent shadow-elevated -mt-6 -mb-6 min-h-[600px]'
+        ? 'border-2 border-accent shadow-elevated -mt-6 -mb-6 min-h-[580px]'
         : 'border border-accent shadow-card min-h-[520px]'
 
     const buttonStyle = plan.variant === 'solid'
