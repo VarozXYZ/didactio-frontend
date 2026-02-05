@@ -16,7 +16,7 @@ function Footer() {
                         className="w-[280px] bg-transparent font-inter text-sm text-white placeholder:text-white/50 outline-none"
                     />
                     <button className="w-[65px] h-[50px] bg-white rounded-full flex items-center justify-center hover:bg-white/90 transition-colors">
-                        <img src="/assets/icons/paper-plane-solid-full 1.png" alt="Send" className="w-8 h-8" />
+                        <img src="/assets/icons/paper-plane-solid-full.png" alt="Send" className="w-8 h-8" />
                     </button>
                 </div>
             </div>
@@ -29,13 +29,13 @@ function Footer() {
                     </p>
                     <div className="flex items-center gap-3">
                         <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="w-16 h-16 rounded-full bg-dark flex items-center justify-center hover:bg-dark/80 transition-colors">
-                            <img src="/assets/icons/x-twitter-brands-solid-full 1.png" alt="X" className="w-10 h-10" />
+                            <img src="/assets/icons/x-twitter.png" alt="X" className="w-10 h-10" />
                         </a>
                         <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="w-16 h-16 rounded-full bg-dark flex items-center justify-center hover:bg-dark/80 transition-colors">
                             <img src="/assets/icons/instagram.png" alt="Instagram" className="w-10 h-10" />
                         </a>
                         <a href="https://discord.com" target="_blank" rel="noopener noreferrer" className="w-16 h-16 rounded-full bg-dark flex items-center justify-center hover:bg-dark/80 transition-colors">
-                            <img src="/assets/icons/discord-brands-solid-full 1.png" alt="Discord" className="w-10 h-10" />
+                            <img src="/assets/icons/discord-brands-solid-full.png" alt="Discord" className="w-10 h-10" />
                         </a>
                     </div>
                 </div>

@@ -31,25 +31,25 @@ const row5 = shuffle(brands)
 
 const features = [
     {
-        icon: '/assets/icons/wand-magic-sparkles-solid 1.png',
+        icon: '/assets/icons/magic-wand.png',
         title: 'Fast & effortless',
         description: 'Customize it and have it generated in minutes. Edit yourself if needed, all in the same place.',
         iconMargin: 'ml-2 mb-1',
     },
     {
-        icon: '/assets/icons/language-solid-full 1.png',
+        icon: '/assets/icons/language-solid-full.png',
         title: 'Pedagogically backed',
         description: 'Our systems have been created by educational experts. Courses balance practice and theory.',
         iconMargin: 'ml-0.5',
     },
     {
-        icon: '/assets/icons/hand-holding-dollar-solid-full 1.png',
+        icon: '/assets/icons/hand-holding-dollar-solid-full.png',
         title: 'Affordable & scalable',
         description: 'Try our systems for free and scale them across your entire organization for a fraction of the cost.',
         iconMargin: 'ml-0.25 mb-0.5',
     },
     {
-        icon: '/assets/icons/graduation-cap-solid 1.png',
+        icon: '/assets/icons/graduation-cap-solid.png',
         title: 'Any topic, any field',
         description: 'Generate courses for virtually any subject: STEM, humanities, languages, professional development and beyond',
         iconMargin: 'ml-0.5',
