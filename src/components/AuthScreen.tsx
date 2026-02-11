@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import type { FormEvent } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { login, register } from '../services/auth.api'
+import { saveAuthSession } from '../services/auth.storage'
 
 type AuthMode = 'login' | 'register'
 
@@ -23,17 +25,72 @@ function SocialButton({ label, iconSrc }: { label: string; iconSrc: string }) {
 }
 
 function AuthScreen({ mode }: AuthScreenProps) {
+    const navigate = useNavigate()
     const isLogin = mode === 'login'
     const [showPassword, setShowPassword] = useState(false)
     const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+    const [fullName, setFullName] = useState('')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState('')
+    const [errorMessage, setErrorMessage] = useState<string | null>(null)
+    const [isSubmitting, setIsSubmitting] = useState(false)
 
     const title = isLogin ? 'Welcome back' : 'Create your account'
     const subtitle = isLogin
         ? 'Sign in to access the dashboard.'
         : 'Sign up to start building smarter curricula in minutes.'
 
-    function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    async function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault()
+        setErrorMessage(null)
+
+        const normalizedEmail = email.trim()
+        if (!normalizedEmail) {
+            setErrorMessage('Please enter your email address.')
+            return
+        }
+
+        if (!password) {
+            setErrorMessage('Please enter your password.')
+            return
+        }
+
+        if (!isLogin) {
+            if (password.length < 8) {
+                setErrorMessage('Password must be at least 8 characters.')
+                return
+            }
+
+            if (password !== confirmPassword) {
+                setErrorMessage('Passwords do not match.')
+                return
+            }
+        }
+
+        setIsSubmitting(true)
+
+        try {
+            const authResponse = isLogin
+                ? await login({
+                    email: normalizedEmail,
+                    password,
+                })
+                : await register({
+                    name: fullName.trim() || undefined,
+                    email: normalizedEmail,
+                    password,
+                })
+
+            saveAuthSession(authResponse)
+            navigate('/', { replace: true })
+        } catch (error) {
+            setErrorMessage(
+                error instanceof Error ? error.message : 'Unable to authenticate right now.'
+            )
+        } finally {
+            setIsSubmitting(false)
+        }
     }
 
     return (
@@ -80,6 +137,8 @@ function AuthScreen({ mode }: AuthScreenProps) {
                                     name="name"
                                     autoComplete="name"
                                     placeholder="Jane Doe"
+                                    value={fullName}
+                                    onChange={(event) => setFullName(event.target.value)}
                                     className="mt-4 h-13 w-full rounded-sm border border-dark/15 bg-white px-4 font-inter text-xl text-dark outline-none transition-shadow placeholder:text-dark/40 focus:ring-2 focus:ring-accent/50"
                                 />
                             </label>
@@ -92,6 +151,8 @@ function AuthScreen({ mode }: AuthScreenProps) {
                                 name="email"
                                 autoComplete="email"
                                 placeholder="name@example.com"
+                                value={email}
+                                onChange={(event) => setEmail(event.target.value)}
                                 className="mt-4 h-13 w-full rounded-sm border border-dark/15 bg-white px-4 font-inter text-xl text-dark outline-none transition-shadow placeholder:text-dark/40 focus:ring-2 focus:ring-accent/50"
                             />
                         </label>
@@ -104,6 +165,8 @@ function AuthScreen({ mode }: AuthScreenProps) {
                                     name="password"
                                     autoComplete={isLogin ? 'current-password' : 'new-password'}
                                     placeholder="Enter your password"
+                                    value={password}
+                                    onChange={(event) => setPassword(event.target.value)}
                                     className="h-13 w-full rounded-sm border border-dark/15 bg-white px-4 pr-12 font-inter text-xl text-dark outline-none transition-shadow placeholder:text-dark/40 focus:ring-2 focus:ring-accent/50"
                                 />
                                 <button
@@ -126,6 +189,8 @@ function AuthScreen({ mode }: AuthScreenProps) {
                                         name="confirmPassword"
                                         autoComplete="new-password"
                                         placeholder="Confirm your password"
+                                        value={confirmPassword}
+                                        onChange={(event) => setConfirmPassword(event.target.value)}
                                         className="h-13 w-full rounded-sm border border-dark/15 bg-white px-4 pr-12 font-inter text-xl text-dark outline-none transition-shadow placeholder:text-dark/40 focus:ring-2 focus:ring-accent/50"
                                     />
                                     <button
@@ -152,11 +217,18 @@ function AuthScreen({ mode }: AuthScreenProps) {
                             </p>
                         )}
 
+                        {errorMessage && (
+                            <p className="rounded-sm border border-red-400/40 bg-red-50 px-3 py-2 font-inter text-sm text-red-700">
+                                {errorMessage}
+                            </p>
+                        )}
+
                         <button
                             type="submit"
-                            className="mt-4 h-13 w-full cursor-pointer rounded-sm bg-accent font-sora text-xl font-semibold text-white shadow-card transition-colors hover:bg-accent/90"
+                            disabled={isSubmitting}
+                            className="mt-4 h-13 w-full cursor-pointer rounded-sm bg-accent font-sora text-xl font-semibold text-white shadow-card transition-colors hover:bg-accent/90 disabled:cursor-not-allowed disabled:opacity-70"
                         >
-                            {isLogin ? 'Log In' : 'Create account'}
+                            {isSubmitting ? (isLogin ? 'Logging in...' : 'Creating account...') : (isLogin ? 'Log In' : 'Create account')}
                         </button>
                     </form>
 
